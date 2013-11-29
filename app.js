@@ -1,4 +1,4 @@
-var five = require("johnny-five")
+var firmata = require("firmata")
 
 // web server elements
 var express = require('express');
@@ -47,17 +47,14 @@ io.sockets.on("connection", function(socket) {
 
 });
 
-// SET up the arduino
-board = new five.Board();
-var pin = 10; // led pin to turn on.
+// SET up the arduino and firmata
 
-board.on("ready", function(err) {
-
+var pin = 13; // led pin to turn on.
+board = new firmata.Board('/dev/tty.usbserial-A800ewCm', function(err) {
     if (err){
         console.log(err);
         return;
     }
-
     console.log("Control via your browser now");
 });
 
