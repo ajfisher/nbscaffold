@@ -1,5 +1,10 @@
 var firmata = require("firmata")
 
+if (process.argv[2] == null) {
+    console.log("Please supply a device to connect to");
+    process.exit();
+}
+
 // web server elements
 var express = require('express');
 var app = express();
@@ -25,7 +30,7 @@ server.listen(app.get('port'));
 var io = require('socket.io').listen(server);
 io.set('log level', 1);
 
-console.log("MESSAGE: Web server now listening".web);
+console.log("MESSAGE: Web server now listening");
 
 app.get('/', function(request, response) {
     response.sendfile(__dirname + '/public/index.html');
@@ -50,10 +55,10 @@ io.sockets.on("connection", function(socket) {
 // SET up the arduino and firmata
 
 var pin = 13; // led pin to turn on.
-board = new firmata.Board('/dev/tty.usbserial-A800ewCm', function(err) {
+board = new firmata.Board(process.argv[2], function(err) {
     if (err){
         console.log(err);
-        return;
+        process.exit();
     }
     console.log("Control via your browser now");
 });
