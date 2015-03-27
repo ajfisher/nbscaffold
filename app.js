@@ -18,7 +18,7 @@ var board;
 //
 
 app.configure(function() {
-    app.set('port', 8000);
+    app.set('port', 8001);
     app.use(app.router);
     app.use(express.static(__dirname + '/public'));
 });
@@ -54,7 +54,7 @@ io.sockets.on("connection", function(socket) {
 
 // SET up the arduino and firmata
 
-var pin = 13; // led pin to turn on.
+var pin = 10; // led pin to turn on.
 board = new firmata.Board(process.argv[2], function(err) {
     if (err){
         console.log(err);
