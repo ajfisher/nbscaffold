@@ -8,9 +8,9 @@ var board = new firmata.Board(process.argv[2], function(err) {
 
     console.log('connected');
 
-    board.pinMode(10, board.OUTPUT);
+    board.pinMode(10, 1);
     var state = false;
-    setInterval(function() {
+    var interval = setInterval(function() {
         state = ! state;
         board.digitalWrite(10, state);
     }, 1000);
